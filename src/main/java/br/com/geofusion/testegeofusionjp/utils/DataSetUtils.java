@@ -20,7 +20,7 @@ public class DataSetUtils {
 				.load(path);
 	}
 	
-	public Dataset<Row> readJSON(String path, String delimiter) {
+	public Dataset<Row> readJSON(String path) {
 		return sparkSession
 				.read().format("json")
 				.option("header", "true")

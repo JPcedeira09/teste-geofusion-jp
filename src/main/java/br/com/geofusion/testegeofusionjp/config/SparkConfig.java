@@ -1,4 +1,4 @@
-package br.com.geofusion.testegeofusionjp;
+package br.com.geofusion.testegeofusionjp.config;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;

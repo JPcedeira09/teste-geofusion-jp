@@ -1,9 +1,12 @@
-package br.com.geofusion.testegeofusionjp.utils;
+package br.com.geofusion.testegeofusionjp.repository;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import br.com.geofusion.testegeofusionjp.utils.DataSetUtils;
 
 
 @Component
@@ -12,19 +15,30 @@ public class DataSetsUtils {
     @Autowired
     private DataSetUtils utils;
     
-	public void getBairros() {
+    @Autowired
+    private SparkSession sparkSession;
+    
+	public Dataset<Row> getBairros() {
+		 Dataset<Row> readCSV = utils.readCSV("/Users/joaopaulo/Downloads/desafio/bairros.csv", ",");
 		
-		Dataset<Row> load = utils.readCSV("/Users/joaopaulo/Downloads/desafio/bairros.csv", ",");
-				
-		load.show();
+		 readCSV.createOrReplaceTempView("bairros");	
+		 
+		 Dataset<Row> bairrosOrganizado = sparkSession.sql("select codigo as codigo_bairros,nome,municipio,uf,area from bairros");
+		 
+		 return bairrosOrganizado;
 	}
 	
+	public Dataset<Row> getConcorrentes() {
+		return utils.readCSV("/Users/joaopaulo/Downloads/desafio/concorrentes.csv", ",");
+	}
+
+	public Dataset<Row> getPotencial() {
+		return utils.readCSV("/Users/joaopaulo/Downloads/desafio/potencial.csv", ",");
+	}
 	
-//	public static void getBairros(SparkContext context) {
-//		Dataset<Row> ds_bairros_csv = DataSetUtils.ReadCSV("/Users/joaopaulo/Downloads/desafio/bairros.csv", context);
-//		ds_bairros_csv.show();
-//	}
-	
+	public Dataset<Row> getPopulacao() {
+		return utils.readJSON("/Users/joaopaulo/Downloads/desafio/populacao.json");
+	}
 	
 //	/**
 //	 * retorn o DATASET  DO CSV ACCOUNT PAYMENT FEE
