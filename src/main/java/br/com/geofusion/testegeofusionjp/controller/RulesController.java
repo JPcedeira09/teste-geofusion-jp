@@ -2,6 +2,7 @@ package br.com.geofusion.testegeofusionjp.controller;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,9 @@ public class RulesController {
 	@Autowired
 	private DataSetsUtils datasetUtils;
 	
+    @Autowired
+    private SparkSession sparkSession;
+    
 	@GetMapping("/densidade_demografica")
 	public void densidadeDemografica(){
 		
@@ -34,6 +38,24 @@ public class RulesController {
 		
 		select.show();
 	}
+	
+    //em cada dia da semana
+	//quantas pessoas em média
+	public void getCadaDiaSemana() {
+		
+		Dataset<Row> eventos = datasetUtils.getEventoDeFluxo();
+		
+		eventos.createOrReplaceTempView("eventos");	
+		
+		Dataset<Row> sql = sparkSession.sql("select codigo_concorrente, count(codigo) as transacoesDiaDaSemana, DAYOFWEEK(datetime) as diaDaSemana from eventos group by codigo_concorrente, DAYOFWEEK(datetime) order by codigo_concorrente, DAYOFWEEK(datetime)");
+
+		sql.show();
+
+	}
+	
+//	cada período do dia.
+
+	
 //	
 //	private static void join2(SparkContext context) {
 //

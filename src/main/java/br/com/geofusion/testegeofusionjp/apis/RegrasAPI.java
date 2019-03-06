@@ -14,8 +14,15 @@ public class RegrasAPI {
 	@Autowired
 	private RulesController rules;
 	
-	@GetMapping("/join")
-	public void getJoin() {
+	@GetMapping("/densidadeDemografica")
+	public void densidadeDemografica() {
 		rules.densidadeDemografica();
 	}
+	
+	@GetMapping("/getCadaDiaSemana")
+	public void getCadaDiaSemana() {
+		rules.getCadaDiaSemana();
+	}
+	
+	
 }

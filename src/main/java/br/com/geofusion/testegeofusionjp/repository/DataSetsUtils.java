@@ -40,6 +40,11 @@ public class DataSetsUtils {
 		return utils.readJSON("/Users/joaopaulo/Downloads/desafio/populacao.json");
 	}
 	
+	public Dataset<Row> getEventoDeFluxo() {
+		return utils.readCSV("/Users/joaopaulo/Downloads/desafio/eventos_de_fluxo.csv", ",");
+	}
+	
+	
 //	/**
 //	 * retorn o DATASET  DO CSV ACCOUNT PAYMENT FEE
 //	 * @param SparkContext
