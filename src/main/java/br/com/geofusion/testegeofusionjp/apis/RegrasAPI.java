@@ -13,16 +13,37 @@ public class RegrasAPI {
 
 	@Autowired
 	private RulesController rules;
-	
+
 	@GetMapping("/densidadeDemografica")
 	public void densidadeDemografica() {
 		rules.densidadeDemografica();
 	}
-	
+
 	@GetMapping("/getCadaDiaSemana")
 	public void getCadaDiaSemana() {
 		rules.getCadaDiaSemana();
 	}
 	
+	@GetMapping("/getPeriodoDaNoite")
+	public void getNoite() {
+		rules.noite();
+	}
+
+	@GetMapping("/getPeriodoDaTarde")
+	public void getTarde() {
+		rules.tarde();
+
+	}
 	
+	@GetMapping("/getPeriodoDaManha")
+	public void getManha() {
+		rules.manha();
+
+	}
+
+	@GetMapping("/getPeriodoTotal")
+	public void union() {
+		rules.periodos();
+	}
+
 }
