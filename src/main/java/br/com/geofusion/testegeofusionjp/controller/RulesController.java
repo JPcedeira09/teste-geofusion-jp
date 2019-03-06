@@ -1,16 +1,14 @@
 package br.com.geofusion.testegeofusionjp.controller;
 
-import org.apache.spark.rdd.RDD;
+import java.util.List;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.geofusion.testegeofusionjp.models.EventosSemanais;
 import br.com.geofusion.testegeofusionjp.repository.DataSetsUtils;
-import br.com.lemon.model.NasaRequest;
 
 
 @Component
@@ -22,14 +20,21 @@ public class RulesController {
 	@Autowired
 	private SparkSession sparkSession;
 
-	@GetMapping("/densidade_demografica")
-	public void densidadeDemografica(){
+	public List<String> densidadeDemografica(){
 
 		Dataset<Row> bairros = datasetUtils.getBairros();
 
 		Dataset<Row> populacao = datasetUtils.getPopulacao();
 
 		Dataset<Row> join = bairros.join(populacao,populacao.col("codigo").equalTo(bairros.col("codigo_bairros")));
+
+//		Dataset<DensidadeDemografica> select = join.select(join.col("codigo_bairros"),
+//				join.col("nome"),
+//				join.col("municipio"),
+//				join.col("uf"),
+//				join.col("area"),
+//				join.col("populacao"),
+//				(join.col("populacao").divide(join.col("area"))).alias("densidade_demografica")).as(Encoders.bean(DensidadeDemografica.class));
 
 		Dataset<Row> select = join.select(join.col("codigo_bairros"),
 				join.col("nome"),
@@ -40,10 +45,14 @@ public class RulesController {
 				(join.col("populacao").divide(join.col("area"))).alias("densidade_demografica"));
 
 		select.show();
+
+		List<String> jsonDataset = select.toJSON().collectAsList();
+
+		return jsonDataset;
 	}
 
-	
-	public void getCadaDiaSemana() {
+
+	public Dataset<Row> getCadaDiaSemana() {
 
 		Dataset<Row> eventos = datasetUtils.getEventoDeFluxo();
 
@@ -53,9 +62,8 @@ public class RulesController {
 
 		sql.show();
 
-		RDD<Row> rdd = sql.rdd();
-//		sql.map(x -> new EventosSemanais(sql.col("").cast("Int"),sql.col("").cast("Int"),sql.col("").cast("Int")));
-		
+
+		return sql;
 	}
 
 	public Dataset<Row> manha() {
@@ -66,7 +74,7 @@ public class RulesController {
 
 		Dataset<Row> manha = sparkSession.sql("select codigo_concorrente, count(codigo) as transacoesDiaDaSemana, DAYOFWEEK(datetime) as diaDaSemana, 'manha' as periodo, MIN(HOUR(datetime)) as horaMinimaDoPeriodo,MAX(HOUR(datetime)) as horaMaximaDoPeriodo from eventos where HOUR(datetime) >= 8  and HOUR(datetime) < 12 group by codigo_concorrente, DAYOFWEEK(datetime) order by codigo_concorrente, DAYOFWEEK(datetime)");
 
-		manha.as(evidence$2);
+		manha.show();
 
 		return manha;
 	}
@@ -93,15 +101,20 @@ public class RulesController {
 		Dataset<Row> noite = sparkSession.sql("select codigo_concorrente, count(codigo) as transacoesDiaDaSemana, DAYOFWEEK(datetime) as diaDaSemana, 'noite' as periodo, MIN(HOUR(datetime)) as horaMinimaDoPeriodo,MAX(HOUR(datetime)) as horaMaximaDoPeriodo from eventos where HOUR(datetime) >= 18 and HOUR(datetime) < 24 group by codigo_concorrente, DAYOFWEEK(datetime) order by codigo_concorrente, DAYOFWEEK(datetime)");
 
 		noite.show();
+
 		return noite;
 	}
 
-	public void periodos() {
-		
+	public List<String> periodos() {
+
 		Dataset<Row> union = manha().union(tarde()).union(noite());
 
-		union.orderBy(union.col("codigo_concorrente"),union.col("diaDaSemana")).show();;
-	}
+		Dataset<Row> orderBy = union.orderBy(union.col("codigo_concorrente"),union.col("diaDaSemana"));
+		orderBy.show();
 
+		List<String> jsonDataset = orderBy.toJSON().collectAsList();
+
+		return jsonDataset;
+	}
 
 }

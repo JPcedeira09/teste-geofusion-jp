@@ -1,5 +1,9 @@
 package br.com.geofusion.testegeofusionjp.apis;
 
+import java.util.List;
+
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,36 +18,56 @@ public class RegrasAPI {
 	@Autowired
 	private RulesController rules;
 
+
 	@GetMapping("/densidadeDemografica")
-	public void densidadeDemografica() {
-		rules.densidadeDemografica();
+	public List<String> densidadeDemografica() {
+		return rules.densidadeDemografica();
 	}
 
 	@GetMapping("/getCadaDiaSemana")
-	public void getCadaDiaSemana() {
-		rules.getCadaDiaSemana();
+	public List<String> getCadaDiaSemana() {
+		
+		Dataset<Row> cadaDiaSemana = rules.getCadaDiaSemana();
+		
+		List<String> jsonDataset = cadaDiaSemana.toJSON().collectAsList();
+
+		return jsonDataset;
 	}
-	
+
 	@GetMapping("/getPeriodoDaNoite")
-	public void getNoite() {
-		rules.noite();
+	public List<String> getNoite() {
+		
+		Dataset<Row> noite = rules.noite();
+
+		List<String> jsonDataset = noite.toJSON().collectAsList();
+
+		return jsonDataset;
 	}
 
 	@GetMapping("/getPeriodoDaTarde")
-	public void getTarde() {
-		rules.tarde();
+	public List<String> getTarde() {
+
+		Dataset<Row> tarde = rules.tarde();
+
+		List<String> jsonDataset = tarde.toJSON().collectAsList();
+
+		return jsonDataset;
 
 	}
-	
-	@GetMapping("/getPeriodoDaManha")
-	public void getManha() {
-		rules.manha();
 
+	@GetMapping("/getPeriodoDaManha")
+	public List<String> getManha() {
+
+		Dataset<Row> manha = rules.manha();
+
+		List<String> jsonDataset = manha.toJSON().collectAsList();
+
+		return jsonDataset;
 	}
 
 	@GetMapping("/getPeriodoTotal")
-	public void union() {
-		rules.periodos();
+	public List<String> union() {
+		return rules.periodos();
 	}
 
 }

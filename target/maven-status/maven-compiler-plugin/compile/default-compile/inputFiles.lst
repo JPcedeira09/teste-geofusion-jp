@@ -1,0 +1,13 @@
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/controller/RulesController.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/repository/DataSetsUtils.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/config/SparkConfig.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/TesteGeofusionJpApplication.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/EventosSemanais.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/Potencial.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/Bairros.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/DensidadeDemografica.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/utils/DataSetUtils.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/apis/RegrasAPI.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/Concorrentes.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/Populacao.java
+/Users/joaopaulo/Desktop/GitHub/teste-geofusion-jp/src/main/java/br/com/geofusion/testegeofusionjp/models/EventosDeFluxo.java

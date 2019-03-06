@@ -1,0 +1,13 @@
+br/com/geofusion/testegeofusionjp/models/Bairros.class
+br/com/geofusion/testegeofusionjp/TesteGeofusionJpApplication.class
+br/com/geofusion/testegeofusionjp/models/EventosSemanais.class
+br/com/geofusion/testegeofusionjp/controller/RulesController.class
+br/com/geofusion/testegeofusionjp/models/Potencial.class
+br/com/geofusion/testegeofusionjp/models/EventosDeFluxo.class
+br/com/geofusion/testegeofusionjp/models/Concorrentes.class
+br/com/geofusion/testegeofusionjp/models/DensidadeDemografica.class
+br/com/geofusion/testegeofusionjp/utils/DataSetUtils.class
+br/com/geofusion/testegeofusionjp/models/Populacao.class
+br/com/geofusion/testegeofusionjp/repository/DataSetsUtils.class
+br/com/geofusion/testegeofusionjp/apis/RegrasAPI.class
+br/com/geofusion/testegeofusionjp/config/SparkConfig.class
