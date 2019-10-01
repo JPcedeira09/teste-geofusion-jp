@@ -8,3 +8,7 @@ ADD /target/teste-geofusion-jp-0.0.1-SNAPSHOT.jar teste-geofusion-jp-0.0.1-SNAPS
 ENTRYPOINT ["java", "-jar", "teste-geofusion-jp-0.0.1-SNAPSHOT.jar"]
 
 RUN echo "TESTE GEOFUSION"
+
+
+
+//https://www.javainuse.com/devOps/docker/docker-mysql
